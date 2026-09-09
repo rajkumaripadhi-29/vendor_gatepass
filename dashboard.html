@@ -1,0 +1,1995 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dashboard – Tata Steel Special Economic Zone Gate Pass Management System"
+    />
+    <title>Dashboard – Tata Steel SEZ Gate Pass System</title>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dashboard Stylesheet -->
+    <link rel="stylesheet" href="dashboard.css" />
+    <!-- Include html2canvas for JPG generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- SheetJS for Excel export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <!-- Favicon (Tata Blue placeholder) -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23003366'/><text x='50' y='62' font-family='Arial' font-weight='bold' font-size='28' fill='white' text-anchor='middle'>TATA</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="navbar__inner">
+        <!-- Left: Logo + Brand Name -->
+        <div class="navbar__brand">
+          <!-- Hamburger Menu Button -->
+          <button
+            class="navbar__menu-btn"
+            id="sidebarToggleBtn"
+            aria-label="Toggle sidebar"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- Tata Logo – Professional SVG: white "TATA" text inside a blue rounded square -->
+          <a
+            href="dashboard.html"
+            class="navbar__logo-link"
+            aria-label="Tata Steel SEZ Home"
+          >
+            <img
+              src="https://www.carlogos.org/logo/Tata-Group-logo-3840x2160.png"
+              alt="Tata Logo"
+              class="navbar__logo"
+            />
+          </a>
+          <span class="navbar__title">Tata Steel Special Economic Zone</span>
+        </div>
+
+        <!-- Right: Profile Button + Dropdown -->
+        <div class="navbar__actions">
+          <div class="profile-menu">
+            <button
+              class="profile-menu__trigger"
+              id="profileBtn"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Open profile menu"
+              title="Profile"
+            >
+              <!-- Profile Icon SVG – User silhouette in a circle -->
+              <svg
+                class="profile-menu__icon"
+                width="36"
+                height="36"
+                viewBox="0 0 36 36"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="17"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                />
+                <circle cx="18" cy="14" r="5.5" fill="#ffffff" />
+                <path
+                  d="M6.5 31 C6.5 24 11 20.5 18 20.5 C25 20.5 29.5 24 29.5 31"
+                  fill="#ffffff"
+                />
+              </svg>
+            </button>
+
+            <!-- Profile Dropdown Menu -->
+            <div
+              class="profile-menu__dropdown"
+              id="profileDropdown"
+              role="menu"
+              aria-label="Profile options"
+            >
+              <!-- Small arrow/triangle pointing up -->
+              <div class="profile-menu__arrow"></div>
+
+              <a
+                href="#"
+                class="profile-menu__item"
+                role="menuitem"
+                id="changePasswordBtn"
+              >
+                <!-- Key icon -->
+                <svg
+                  class="profile-menu__item-icon"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"
+                  />
+                </svg>
+                <span>Change Password</span>
+              </a>
+
+              <div class="profile-menu__divider"></div>
+
+              <a
+                href="#"
+                class="profile-menu__item profile-menu__item--logout"
+                role="menuitem"
+                id="logoutBtn"
+              >
+                <!-- Logout icon -->
+                <svg
+                  class="profile-menu__item-icon"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                <span>Logout</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- ========== END NAVBAR ========== -->
+
+    <!-- ========== SIDEBAR ========== -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <ul class="sidebar__menu">
+        <li>
+          <a href="#" class="sidebar__link active" data-view="home">Home</a>
+        </li>
+        <li>
+          <a href="#" class="sidebar__link" data-view="generate-pass"
+            >Generate Pass</a
+          >
+        </li>
+        <li>
+          <a href="#" class="sidebar__link" data-view="companies">Companies</a>
+        </li>
+        <li>
+          <a href="#" class="sidebar__link" data-view="pass-record"
+            >Pass Record</a
+          >
+        </li>
+        <li>
+          <a href="#" class="sidebar__link" data-view="expiring-pass"
+            >Pass Details </a
+          >
+        </li>
+
+        <li>
+          <a href="#" class="sidebar__link sidebar__link--admin" data-view="delete-record"
+            >Delete Record</a
+          >
+        </li>
+        <li>
+          <a href="#" class="sidebar__link" data-view="about">About</a>
+        </li>
+      </ul>
+    </aside>
+    <!-- ========== END SIDEBAR ========== -->
+
+    <!-- ========== MAIN CONTENT AREA ========== -->
+    <main class="main-content" id="mainContent">
+      <!-- HOME VIEW -->
+      <div id="view-home" class="view-section">
+        <div class="home-bg">
+          <img
+            src="https://www.globalbrandsmagazine.com/wp-content/uploads/2024/10/Ratan-Tata-jpg.webp"
+            alt="Ratan Tata Background"
+          />
+        </div>
+        <div class="home-overlay"></div>
+        <div class="dashboard-module home-content-module">
+          <div class="module-header home-welcome">
+            <p>Welcome back! Here are the latest statistics.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div
+                class="stat-card__icon"
+                style="
+                  background: var(--color-light-blue);
+                  color: var(--color-primary);
+                "
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  ></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <div class="stat-card__info">
+                <h3 class="stat-card__title">Total Passes generated</h3>
+                <p class="stat-card__value" id="statTotalPasses">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div
+                class="stat-card__icon"
+                style="background: #ecfdf5; color: #10b981"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="stat-card__info">
+                <h3 class="stat-card__title">Active Passes</h3>
+                <p class="stat-card__value" id="statActivePasses">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div
+                class="stat-card__icon"
+                style="background: #fef2f2; color: #ef4444"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="15" y1="9" x2="9" y2="15"></line>
+                  <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+              </div>
+              <div class="stat-card__info">
+                <h3 class="stat-card__title">Expired Passes</h3>
+                <p class="stat-card__value" id="statExpiredPasses">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div
+                class="stat-card__icon"
+                style="background: #fef9c3; color: #eab308"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="stat-card__info">
+                <h3 class="stat-card__title">Expiring Today</h3>
+                <p class="stat-card__value" id="statExpiringToday">0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GENERATE PASS VIEW -->
+      <div id="view-generate-pass" class="view-section" style="display: none">
+        <div class="dashboard-module" style="margin-top: 20px">
+          <div class="module-header">
+            <h2>Generate Vendor Entry Pass</h2>
+            <p>Fill the details below to generate entry permit for vendor</p>
+          </div>
+
+          <div class="module-content">
+            <!-- Left Column: Form -->
+            <div class="form-section">
+              <form id="vendor-pass-form">
+                <!-- Pass Details -->
+                <div class="form-group-title">PASS DETAILS</div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Form Number</label>
+                    <input
+                      type="text"
+                      id="formNumber"
+                      value="FORM NO-S&F/1403/R.O"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>GP Number</label>
+                    <input
+                      type="text"
+                      id="gpNumber"
+                      placeholder="e.g. TSSEZL/JJI/26/010"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Vendor Code</label>
+                    <input
+                      type="text"
+                      id="vendorCode"
+                      placeholder="e.g. GJJ01"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Work Order Number</label>
+                    <input
+                      type="text"
+                      id="workOrderNumber"
+                      placeholder="e.g. 4700000011/DPG"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Issued Date</label>
+                    <input type="date" id="issuedDate" required />
+                  </div>
+                  <div class="form-group">
+                    <label>Valid Till Date</label>
+                    <input type="date" id="validTillDate" required />
+                  </div>
+                </div>
+
+                <!-- Medical Details -->
+                <div class="form-group-title">MEDICAL DETAILS</div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Medical From Date</label>
+                    <input type="date" id="medicalFromDate" required />
+                  </div>
+                  <div class="form-group">
+                    <label>Medical To Date</label>
+                    <input type="date" id="medicalToDate" required />
+                  </div>
+                </div>
+
+                <!-- Vendor Details -->
+                <div class="form-group-title">VENDOR DETAILS</div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Vendor Name</label>
+                    <input
+                      type="text"
+                      id="vendorName"
+                      placeholder="Enter full name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Gender</label>
+                    <select id="gender" required>
+                      <option value="">Select Gender</option>
+                      <option value="MALE">MALE</option>
+                      <option value="FEMALE">FEMALE</option>
+                      <option value="OTHER">OTHER</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Identification Mark</label>
+                    <input
+                      type="text"
+                      id="idMark"
+                      placeholder="e.g. CUT MARK ON FOREHEAD"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" id="dob" required />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Blood Group</label>
+                    <select id="bloodGroup" required>
+                      <option value="">Select</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Designation</label>
+                    <input
+                      type="text"
+                      id="designation"
+                      placeholder="e.g. SUPERVISOR"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Vendor Company Name</label>
+                    <input
+                      type="text"
+                      id="companyName"
+                      placeholder="e.g. JAI JAGANNATH INFRATECH"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Category</label>
+                    <input
+                      type="text"
+                      id="category"
+                      placeholder="Type category"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Pass Status</label>
+                    <select id="passStatus" required>
+                      <option value="NEW">NEW</option>
+                      <option value="RENEWAL">RENEWAL</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Additional -->
+                <div class="form-group-title">ADDITIONAL</div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Upload Vendor Photo</label>
+                    <div class="file-upload">
+                      <input
+                        type="file"
+                        id="vendorPhoto"
+                        accept="image/png, image/jpeg"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="button" id="btnReset" class="btn-secondary">
+                    Reset
+                  </button>
+                  <button type="button" id="btnSaveRecord" class="btn-success">
+                    Save Record
+                  </button>
+                  <button type="submit" id="btnGenerate" class="btn-primary">
+                    Generate Pass
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right Column: Preview -->
+            <div class="preview-section">
+              <div class="preview-header">
+                <h3>Generated Pass Preview</h3>
+                <button
+                  type="button"
+                  id="btnDownload"
+                  class="btn-outline"
+                  disabled
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Download JPG
+                </button>
+              </div>
+
+              <div class="pass-card-container">
+                <div id="pass-card" class="pass-card">
+                  <table class="pass-table">
+                    <tr>
+                      <td
+                        colspan="3"
+                        class="text-center bold highlight-green"
+                        id="outFormNumber"
+                      >
+                        FORM NO-S&F/1403/R.O
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        colspan="3"
+                        class="text-center bold blue-text text-lg"
+                      >
+                        ENTRY PERMIT FOR TATA STEEL LTD (SEZ)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        colspan="3"
+                        class="text-center bold red-text uppercase text-md"
+                        id="outCompanyName"
+                      >
+                        COMPANY NAME
+                      </td>
+                    </tr>
+                    <tr>
+                      <td rowspan="5" class="photo-cell">
+                        <img
+                          id="outPhoto"
+                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                          alt="Vendor Photo"
+                        />
+                      </td>
+                      <td class="label-cell">G P NO:</td>
+                      <td class="value-cell" id="outGpNumber"></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell">Issued on:</td>
+                      <td class="value-cell" id="outIssuedDate"></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell">Valid Till:</td>
+                      <td class="value-cell" id="outValidTill"></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell">Vendor Code:</td>
+                      <td class="value-cell" id="outVendorCode"></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell">Work order No:</td>
+                      <td class="value-cell" id="outWorkOrder"></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">NAME:</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outName"
+                      ></td>
+                      <td
+                        class="value-cell text-center bold uppercase"
+                        id="outPassStatus"
+                      >
+                        NEW
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">GENDER:</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outGender"
+                      ></td>
+                      <td rowspan="6" class="signature-cell">
+                        <div class="signature-space"></div>
+                        <div class="signature-text">ISSUING AUTHORITY</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">IDENTIFICATION MARK:</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outIdMark"
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">AGE/DOB:</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outDob"
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">BLOOD GROUP</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outBloodGroup"
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">DESIGNATION:</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outDesignation"
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td class="label-cell uppercase">CATEGORY:</td>
+                      <td
+                        class="value-cell uppercase bold text-blue"
+                        id="outCategory"
+                      ></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <div class="note-box">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#0056b3"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span
+                  ><strong>Note:</strong> Click on "Download JPG" to save the
+                  generated pass as an image.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPANY VIEW – SUMMARY -->
+      <div id="view-companies" class="view-section" style="display: none">
+        <div class="dashboard-module" style="margin-top: 20px">
+          <div class="module-header flex-between">
+            <div>
+              <h2>Company Records</h2>
+              <p>View companies and record counts by month and year</p>
+            </div>
+            <div class="filter-controls">
+              <div class="search-box">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                  type="text"
+                  id="companyNameSearch"
+                  placeholder="Search company name..."
+                />
+              </div>
+              <select class="filter-dropdown" id="companyMonthFilter">
+                <option value="" selected>Select Month</option>
+                <option value="all">All Months</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <select class="filter-dropdown" id="CompanyYearFilter"></select>
+              <button type="button" class="btn-search-records" id="btnSearchCompanies">
+                Search
+              </button>
+              <button type="button" class="btn-export" id="btnExportCompanySummary">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export Excel
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Total Records</th>
+                </tr>
+              </thead>
+              <tbody id="companiesSummaryTableBody">
+                <tr>
+                  <td colspan="2">
+                    <div class="table-empty-state">
+                      <p>Select month and year, then click Search to view companies</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPANY VIEW – DETAIL -->
+      <div id="view-company-detail" class="view-section" style="display: none">
+        <div class="dashboard-module" style="margin-top: 20px">
+          <div class="module-header flex-between align-start">
+            <div>
+              <button type="button" class="btn-back-link" id="btnBackToCompanies">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Back to Companies
+              </button>
+              <h2 style="margin-top: 12px">Company Records</h2>
+            </div>
+          </div>
+
+          <div class="company-detail-meta">
+            <div class="company-detail-meta__item">
+              <span class="company-detail-meta__label">Company:</span>
+              <span class="company-detail-meta__value" id="companyDetailName">—</span>
+            </div>
+            <div class="company-detail-meta__item">
+              <span class="company-detail-meta__label">Period:</span>
+              <span class="company-detail-meta__value" id="companyDetailYear">—</span>
+            </div>
+            <div class="company-detail-meta__item">
+              <span class="company-detail-meta__label">Total Records:</span>
+              <span class="company-detail-meta__value" id="companyDetailTotal">0</span>
+            </div>
+          </div>
+
+          <div class="filter-controls company-detail-toolbar">
+            <div class="search-box">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                type="text"
+                id="companyRecordsSearch"
+                placeholder="Search records..."
+              />
+            </div>
+            <button type="button" class="btn-export" id="btnExportCompanyRecords">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export Excel
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th>Form No</th>
+                  <th>GP Number</th>
+                  <th>Vendor Code</th>
+                  <th>Work Order Number</th>
+                  <th>Issued Date</th>
+                  <th>Valid Till Date</th>
+                  <th>Medical From Date</th>
+                  <th>Medical To Date</th>
+                  <th>Vendor Name</th>
+                  <th>Gender</th>
+                  <th>Identification Mark</th>
+                  <th>Date of Birth</th>
+                  <th>Blood Group</th>
+                  <th>Designation</th>
+                  <th>Company Name</th>
+                  <th>Category</th>
+                  <th>Pass Type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="companyRecordsTableBody">
+                <tr>
+                  <td colspan="18">
+                    <div class="table-empty-state">
+                      <p>No records to display</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-controls" id="companyPaginationControls">
+            <button class="pagination-btn" id="btnCompanyPrevPage" disabled>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Previous
+            </button>
+            <span class="pagination-info" id="companyPageInfo">Page 1 of 1</span>
+            <button class="pagination-btn" id="btnCompanyNextPage" disabled>
+              Next
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- PASS RECORD / HISTORY VIEW -->
+      <div id="view-pass-record" class="view-section" style="display: none">
+        <div class="dashboard-module" style="margin-top: 20px">
+          <div class="module-header flex-between align-start">
+            <div>
+              <h2>Pass History</h2>
+              <p>View all generated passes.</p>
+            </div>
+
+            <div class="filter-section-top">
+              <div class="filter-controls">
+                <!-- Search -->
+                <div class="search-box">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input
+                    type="text"
+                    id="historySearch"
+                    placeholder="Search Vendor, GP No, Company..."
+                  />
+                </div>
+
+                <!-- Month Filter -->
+                <select class="filter-dropdown" id="monthFilter">
+                  <option value="" selected>Select Month</option>
+                  <option value="all">All Months</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+
+                <!-- Year Filter -->
+                <select class="filter-dropdown" id="historyYearFilter"></select>
+
+                <button type="button" class="btn-search-records" id="btnSearchPassHistory">
+                  Search Records
+                </button>
+
+                <!-- Export -->
+                <button class="btn-export" id="btnExportHistory">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Export Excel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th>Form No</th>
+                  <th>GP Number</th>
+                  <th>Vendor Code</th>
+                  <th>Work Order Number</th>
+                  <th>Issued Date</th>
+                  <th>Valid Till Date</th>
+                  <th>Medical From Date</th>
+                  <th>Medical To Date</th>
+                  <th>Vendor Name</th>
+                  <th>Gender</th>
+                  <th>Identification Mark</th>
+                  <th>Date of Birth</th>
+                  <th>Blood Group</th>
+                  <th>Designation</th>
+                  <th>Company Name</th>
+                  <th>Category</th>
+                  <th>Pass Type</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="passHistoryTableBody">
+                <tr>
+                  <td colspan="19">
+                    <div class="table-empty-state">
+                      <p>Select year and month to view records</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Controls -->
+          <div class="pagination-controls" id="paginationControls">
+            <button class="pagination-btn" id="btnPrevPage" disabled>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Previous
+            </button>
+            <span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+            <button class="pagination-btn" id="btnNextPage" disabled>
+              Next
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- EXPIRING / EXPIRED PASS VIEW -->
+      <div id="view-expiring-pass" class="view-section" style="display: none">
+        <!-- Expiring Passes Section -->
+        <div class="dashboard-module" style="margin-top: 20px">
+          <div class="module-header flex-between align-start">
+            <div>
+              <h2>Expiring Passes</h2>
+              <p>View passes that are expiring soon.</p>
+            </div>
+            <div class="filter-controls">
+              <div class="search-box">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                  type="text"
+                  id="expiringSearch"
+                  placeholder="Search passes..."
+                />
+              </div>
+              <select class="filter-dropdown" id="expiringDayFilter">
+                <option value="" selected>Select Day</option>
+                <option value="0">Today</option>
+                <option value="1">Tomorrow</option>
+                <option value="5">5 Days</option>
+                <option value="7">7 Days</option>
+                <option value="10">10 Days</option>
+                <option value="20">20 Days</option>
+              </select>
+              <button
+                type="button"
+                class="btn-search-records"
+                id="btnSearchExpiringPasses"
+              >
+                Search Records
+              </button>
+              <button type="button" class="btn-export" id="btnExportExpiringPasses">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export Excel
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th>Form No</th>
+                  <th>GP Number</th>
+                  <th>Vendor Code</th>
+                  <th>Work Order Number</th>
+                  <th>Issued Date</th>
+                  <th>Valid Till Date</th>
+                  <th>Medical From Date</th>
+                  <th>Medical To Date</th>
+                  <th>Vendor Name</th>
+                  <th>Gender</th>
+                  <th>Identification Mark</th>
+                  <th>Date of Birth</th>
+                  <th>Blood Group</th>
+                  <th>Designation</th>
+                  <th>Company Name</th>
+                  <th>Category</th>
+                  <th>Pass Type</th>
+                  <th>Status</th>
+                  <th>Generation Date</th>
+                </tr>
+              </thead>
+              <tbody id="expiringPassTableBody">
+                <tr>
+                  <td colspan="19">
+                    <div class="table-empty-state">
+                      <p>Select day range, then click Search to view records</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-controls" id="expiringPaginationControls">
+            <button
+              type="button"
+              class="pagination-btn"
+              id="btnExpiringPrevPage"
+              disabled
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Previous
+            </button>
+            <span class="pagination-info" id="expiringPageInfo">Page 1 of 1</span>
+            <button
+              type="button"
+              class="pagination-btn"
+              id="btnExpiringNextPage"
+              disabled
+            >
+              Next
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Expired Passes Section -->
+        <div class="dashboard-module" style="margin-top: 20px">
+          <div class="module-header flex-between">
+            <div>
+              <h2>Expired Passes</h2>
+              <p>View passes that have already expired.</p>
+            </div>
+            <div class="filter-controls">
+              <div class="search-box">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                  type="text"
+                  id="expiredSearch"
+                  placeholder="Search expired passes..."
+                />
+              </div>
+              <!-- Month Filter -->
+              <select class="filter-dropdown" id="expiredMonthFilter">
+                <option value="" selected>Select Month</option>
+                <option value="all">All Months</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+
+              <!-- Year Filter -->
+              <select class="filter-dropdown" id="expiringYearFilter"></select>
+
+              <button type="button" class="btn-search-records" id="btnSearchExpiredPasses">
+                Search Records
+              </button>
+
+              <button type="button" class="btn-export" id="btnExportExpiredPasses">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export Excel
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th>Form No</th>
+                  <th>GP Number</th>
+                  <th>Vendor Code</th>
+                  <th>Work Order Number</th>
+                  <th>Issued Date</th>
+                  <th>Valid Till Date</th>
+                  <th>Medical From Date</th>
+                  <th>Medical To Date</th>
+                  <th>Vendor Name</th>
+                  <th>Gender</th>
+                  <th>Identification Mark</th>
+                  <th>Date of Birth</th>
+                  <th>Blood Group</th>
+                  <th>Designation</th>
+                  <th>Company Name</th>
+                  <th>Category</th>
+                  <th>Pass Type</th>
+                  <th>Status</th>
+                  <th>Generation Date</th>
+                </tr>
+              </thead>
+              <tbody id="expiredPassTableBody">
+                <tr>
+                  <td colspan="19">
+                    <div class="table-empty-state">
+                      <p>Select year and month to view records</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-controls" id="expiredPaginationControls">
+            <button
+              type="button"
+              class="pagination-btn"
+              id="btnExpiredPrevPage"
+              disabled
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Previous
+            </button>
+            <span class="pagination-info" id="expiredPageInfo">Page 1 of 1</span>
+            <button
+              type="button"
+              class="pagination-btn"
+              id="btnExpiredNextPage"
+              disabled
+            >
+              Next
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE RECORD VIEW (Admin) -->
+      <div id="view-delete-record" class="view-section" style="display: none">
+        <div class="dashboard-module delete-record-module" style="margin-top: 20px">
+          <div class="module-header">
+            <h2>Delete Records</h2>
+            <p>
+              Permanently remove gate pass records for a selected month and year from
+              the database. This action cannot be undone.
+            </p>
+          </div>
+
+          <div class="delete-record-panel">
+            <div class="delete-record-panel__warning" role="alert">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path
+                  d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+              <p>
+                Deleted records are removed from Firestore immediately. Dashboard
+                statistics will be adjusted to match.
+              </p>
+            </div>
+
+            <div class="delete-record-panel__controls">
+              <select class="filter-dropdown" id="deleteMonthFilter">
+                <option value="" selected>Select Month</option>
+                <option value="all">All Months</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+
+              <select class="filter-dropdown" id="deleteYearFilter"></select>
+
+              <button
+                type="button"
+                class="btn-search-records"
+                id="btnLoadDeleteRecords"
+              >
+                Load Records
+              </button>
+
+              <button
+                type="button"
+                class="btn-delete-records"
+                id="btnDeleteRecords"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <polyline points="3 6 5 6 21 6" />
+                  <path
+                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                  />
+                </svg>
+                Delete Records
+              </button>
+            </div>
+
+            <p class="delete-record-panel__hint" id="deleteRecordHint">
+              Select month and year, then click Load Records to preview or Delete
+              Records to remove all matching records.
+            </p>
+          </div>
+
+          <div class="table-container delete-records-table-container">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th>Form No</th>
+                  <th>GP Number</th>
+                  <th>Vendor Code</th>
+                  <th>Work Order Number</th>
+                  <th>Issued Date</th>
+                  <th>Valid Till Date</th>
+                  <th>Medical From Date</th>
+                  <th>Medical To Date</th>
+                  <th>Vendor Name</th>
+                  <th>Gender</th>
+                  <th>Identification Mark</th>
+                  <th>Date of Birth</th>
+                  <th>Blood Group</th>
+                  <th>Designation</th>
+                  <th>Company Name</th>
+                  <th>Category</th>
+                  <th>Pass Type</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="deleteRecordsTableBody">
+                <tr>
+                  <td colspan="19">
+                    <div class="table-empty-state">
+                      <p>Select month and year, then click Load Records</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-controls" id="deleteRecordsPaginationControls">
+            <button class="pagination-btn" id="btnDeleteRecordsPrevPage" disabled>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Previous
+            </button>
+            <span class="pagination-info" id="deleteRecordsPageInfo">Page 1 of 1</span>
+            <button class="pagination-btn" id="btnDeleteRecordsNextPage" disabled>
+              Next
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT VIEW -->
+      <div id="view-about" class="view-section" style="display: none">
+        <div class="about-page">
+          <header class="about-banner">
+            <div class="about-banner__content">
+              <div class="about-banner__icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <div>
+                <h1 class="about-banner__title">Tata Steel Vendor Pass Management System</h1>
+                <p class="about-banner__subtitle">Industrial Vendor Entry Permit Management Portal</p>
+              </div>
+            </div>
+          </header>
+
+          <div class="about-grid">
+            <!-- Section 1: About The System -->
+            <article class="about-card about-card--wide about-animate">
+              <div class="about-card__header">
+                <span class="about-card__icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </span>
+                <h2 class="about-card__title">About The Website</h2>
+              </div>
+              <p class="about-card__text">
+                This system is developed for Tata Steel Gopalpur Plant to digitally manage vendor entry permits. The portal enables administrators to generate, renew, save, manage, search, export, and monitor vendor passes efficiently. The system tracks active, expired, and expiring passes, validates medical compliance during pass generation, and provides company-wise record management for improved industrial security and administration. Role-based access control has been implemented to ensure that sensitive operations such as record deletion are restricted to authorized administrators only, enhancing data security and operational integrity.
+              </p>
+              <ul class="about-features">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Vendor Pass Generation
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  JPG Pass Download
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Pass History Management
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Expiring and Expired Pass Tracking
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Role-Based Access Control
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Company-wise Records
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Excel Export
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Secure Authentication
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Dashboard Analytics
+                </li>
+              </ul>
+            </article>
+
+            <!-- Section 2: Technologies Used -->
+            <article class="about-card about-animate">
+              <div class="about-card__header">
+                <span class="about-card__icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                </span>
+                <h2 class="about-card__title">Technologies Used</h2>
+              </div>
+              <div class="about-tech-group">
+                <h3 class="about-tech-group__label">Frontend</h3>
+                <div class="about-tech-badges">
+                  <span class="about-tech-badge">HTML</span>
+                  <span class="about-tech-badge">CSS</span>
+                  <span class="about-tech-badge">JavaScript</span>
+                </div>
+              </div>
+              <div class="about-tech-group">
+                <h3 class="about-tech-group__label">Backend / Database</h3>
+                <div class="about-tech-badges">
+                  <span class="about-tech-badge about-tech-badge--accent">Firebase Authentication</span>
+                  <span class="about-tech-badge about-tech-badge--accent">Firebase Firestore</span>
+                </div>
+              </div>
+              <div class="about-tech-group">
+                <h3 class="about-tech-group__label">Libraries</h3>
+                <div class="about-tech-badges">
+                  <span class="about-tech-badge about-tech-badge--lib">html2canvas</span>
+                  <span class="about-tech-badge about-tech-badge--lib">SheetJS (XLSX)</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Section 3: Developed By -->
+            <article class="about-card about-animate">
+              <div class="about-card__header">
+                <span class="about-card__icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </span>
+                <h2 class="about-card__title">Developed By</h2>
+              </div>
+              <dl class="about-info-list">
+                <div class="about-info-list__row">
+                  <dt>Project Developers</dt>
+                  <dd>Rajkumari Padhi<br />Jyotiraj Panda</dd>
+                </div>
+                <div class="about-info-list__row">
+                  <dt>College</dt>
+                  <dd>NIST University</dd>
+                </div>
+                <div class="about-info-list__row">
+                  <dt>Project For</dt>
+                  <dd>Tata Steel Special Economic Zone,Gopalpur</dd>
+                </div>
+                <div class="about-info-list__row">
+                  <dt>Guide / Mentor</dt>
+                  <dd>Satya Narayan Pradhan</dd>
+                </div>
+                <div class="about-info-list__row">
+                  <dt>Academic Year</dt>
+                  <dd>2026–2027</dd>
+                </div>
+              </dl>
+            </article>
+
+            <!-- Section 4: Contact Information -->
+            <article class="about-card about-animate">
+              <div class="about-card__header">
+                <span class="about-card__icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </span>
+                <h2 class="about-card__title">Contact Information</h2>
+              </div>
+              <ul class="about-contact-list">
+                <li>
+                  <span class="about-contact-list__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <span class="about-contact-list__label">Email</span>
+                    <a href="mailto:jyotirajpanda17@gmail.com">jyotirajpanda17@gmail.com</a><br />
+                    <a href="mailto:rajkumaripadhi29@gmail.com">rajkumaripadhi29@gmail.com</a>
+                  </div>
+                </li>
+                <li>
+                  <span class="about-contact-list__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <span class="about-contact-list__label">Phone</span>
+                    <a href="tel:+919938231922">9938231922</a><br />
+                    <a href="tel:+918763908429">8114870747 / 8763908429</a>
+                  </div>
+                </li>
+                <li>
+                  <span class="about-contact-list__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <span class="about-contact-list__label">Address</span>
+                    <span>Berhampur, Ganjam District, Odisha, India</span>
+                  </div>
+                </li>
+              </ul>
+            </article>
+
+            <!-- Section 5: System Information -->
+            <article class="about-card about-card--system about-animate">
+              <div class="about-card__header">
+                <span class="about-card__icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                </span>
+                <h2 class="about-card__title">System Information</h2>
+              </div>
+              <dl class="about-system-info">
+                <div class="about-system-info__row">
+                  <dt>System Version</dt>
+                  <dd>1.0.0</dd>
+                </div>
+                <div class="about-system-info__row">
+                  <dt>Last Updated</dt>
+                  <dd id="aboutLastUpdated">—</dd>
+                </div>
+                <div class="about-system-info__row">
+                  <dt>Environment</dt>
+                  <dd>Web Application (Firebase Cloud)</dd>
+                </div>
+                <div class="about-system-info__row">
+                  <dt>Current Status</dt>
+                  <dd><span class="about-status-badge">Active</span></dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+
+    <!-- Change Password Modal -->
+    <div
+      id="changePasswordModal"
+      class="login-overlay"
+      style="
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+      "
+    >
+      <div
+        class="login-card"
+        style="
+          background: var(--tata-blue-dark);
+          border-radius: 12px;
+          padding: 30px;
+          width: 100%;
+          max-width: 400px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <div
+          class="login-card-header"
+          style="text-align: center; margin-bottom: 20px"
+        >
+          <h2 class="login-card-title" style="color: white; font-size: 1.25rem">
+            Change Password
+          </h2>
+        </div>
+        <div
+          class="error-message"
+          id="cpErrorMessage"
+          style="
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 15px;
+            display: none;
+          "
+        >
+          <span id="cpErrorText" style="font-size: 0.85rem"></span>
+        </div>
+        <div
+          class="success-message"
+          id="cpSuccessMessage"
+          style="
+            background: rgba(39, 174, 96, 0.15);
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 15px;
+            display: none;
+          "
+        >
+          <span id="cpSuccessText" style="font-size: 0.85rem"></span>
+        </div>
+        <form id="changePasswordForm">
+          <div class="form-group" style="margin-bottom: 15px">
+            <label
+              class="form-label"
+              style="
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.8rem;
+                display: block;
+                margin-bottom: 5px;
+              "
+              >Current Password</label
+            >
+            <input
+              type="password"
+              class="form-input"
+              id="currentPassword"
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+              "
+            />
+          </div>
+          <div class="form-group" style="margin-bottom: 15px">
+            <label
+              class="form-label"
+              style="
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.8rem;
+                display: block;
+                margin-bottom: 5px;
+              "
+              >New Password</label
+            >
+            <input
+              type="password"
+              class="form-input"
+              id="newPassword"
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+              "
+            />
+          </div>
+          <div class="form-group" style="margin-bottom: 20px">
+            <label
+              class="form-label"
+              style="
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.8rem;
+                display: block;
+                margin-bottom: 5px;
+              "
+              >Confirm New Password</label
+            >
+            <input
+              type="password"
+              class="form-input"
+              id="confirmNewPassword"
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+              "
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn-login"
+            id="btnUpdatePassword"
+            style="
+              width: 100%;
+              padding: 12px;
+              background: var(--tata-blue-light);
+              color: white;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              font-weight: bold;
+              margin-bottom: 10px;
+            "
+          >
+            Update Password
+          </button>
+          <button
+            type="button"
+            id="btnCancelCp"
+            style="
+              width: 100%;
+              padding: 12px;
+              background: transparent;
+              color: white;
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toastNotification" class="toast-notification">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="toast-icon"
+      >
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span id="toastMessage">Data Saved Successfully</span>
+    </div>
+
+    <!-- Dashboard Script -->
+    <script type="module" src="dashboard.js"></script>
+  </body>
+</html>
